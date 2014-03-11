@@ -1,0 +1,17 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Enable permute': 'permute:toggle'
+
+'menu': [
+  {
+    'label': 'Edit'
+    'submenu': [
+      'label': 'Lines'
+      'submenu': [
+        { 'label': 'Unique', 'command': 'permute:unique' }
+        { 'label': 'Shuffle', 'command': 'permute:shuffle' }
+      ]
+    ]
+  }
+]
