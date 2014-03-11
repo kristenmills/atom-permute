@@ -1,5 +1,13 @@
-# permute package
+# Permute
 
-A short description of your package.
+Shuffles lines and removes duplicates, if that's the sort of thing you are into.
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+## Shuffle
+`Edit -> Lines -> Shuffle`
+
+Will shuffle either the whole file or your current selection
+
+## Unique
+`Edit -> Lines -> Unique`
+
+Will filter out the duplicates of either the whole file or your current selection
