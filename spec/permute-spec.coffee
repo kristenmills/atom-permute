@@ -14,6 +14,11 @@ describe "Permute", ->
     waitsForPromise -> activationPromise
     runs(callback)
 
+  reverse = (callback) ->
+    editorView.trigger "permute:reverse"
+    waitsForPromise -> activationPromise
+    runs(callback)
+
   beforeEach ->
     atom.workspaceView = new WorkspaceView
     atom.workspaceView.openSync()
@@ -42,6 +47,21 @@ describe "Permute", ->
           Cheese
           Cool\n
         """
+    it "reverses all lines", ->
+      editor.setText """
+        Apple
+        Banana
+        Cheese
+      """
+
+      editor.setCursorBufferPosition([0,0])
+
+      reverse ->
+        expect(editor.getText()).toBe """
+          Cheese
+          Banana
+          Apple
+        """
 
   describe "when entire lines are selected", ->
     it "filters out selected lines", ->
@@ -65,6 +85,26 @@ describe "Permute", ->
           Cool\n
         """
 
+    it "reverse selected lines", ->
+      editor.setText """
+        Apple
+        Banana
+        Carrot
+        Cheese
+        Trees
+      """
+
+      editor.setSelectedBufferRange([[1,0], [5,0]])
+
+      reverse ->
+        expect(editor.getText()).toBe """
+          Apple
+          Trees
+          Cheese
+          Carrot
+          Banana
+        """
+
   describe "when partial lines are selected", ->
     it "filters out selected lines", ->
       editor.setText """
@@ -85,6 +125,25 @@ describe "Permute", ->
           Apple
           Cheese
           Cool\n
+        """
+    it "reverse selected lines", ->
+      editor.setText """
+        Apple
+        Banana
+        Carrot
+        Cheese
+        Trees
+      """
+
+      editor.setSelectedBufferRange([[1,1], [4,7]])
+
+      reverse ->
+        expect(editor.getText()).toBe """
+          Apple
+          Trees
+          Cheese
+          Carrot
+          Banana
         """
 
   describe "when there are multiple selection ranges", ->
@@ -107,4 +166,28 @@ describe "Permute", ->
           Banana
           Cool
           Cheese\n
+        """
+    it "reverse the lines in each selecton range", ->
+      editor.setText """
+        Apple
+        Banana
+        Carrot
+        Cheese
+        Trees
+        Potato
+        Computer
+      """
+
+      editor.addSelectionForBufferRange([[0,0], [1,2]])
+      editor.addSelectionForBufferRange([[3,0], [6,0]])
+
+      reverse ->
+        expect(editor.getText()).toBe """
+          Banana
+          Apple
+          Carrot
+          Potato
+          Trees
+          Cheese
+          Computer
         """
