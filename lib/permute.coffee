@@ -21,10 +21,10 @@ shuffle = (editor) ->
     for i in [textLines.length..1]
       j = Math.floor(Math.random() * (i+1))
       [textLines[i], textLines[j]] = [textLines[j], textLines[i]]
-    editor.setTextInBufferRange(range, textLines.join("\n"))
+    editor.setTextInBufferRange(range, textLines.join("\n").replace(/\s+$/, ''))
 
 unique = (editor) ->
   uniqueRanges = RangeFinder.rangesFor(editor)
   uniqueRanges.forEach (range) ->
     textLines = editor.getTextInBufferRange(range).split("\n").unique()
-    editor.setTextInBufferRange(range, textLines.join("\n"))
+    editor.setTextInBufferRange(range, textLines.join("\n").replace(/\s+$/, ''))
