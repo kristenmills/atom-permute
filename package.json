@@ -3,7 +3,7 @@
   "main": "./lib/permute",
   "version": "0.0.0",
   "description": "Shuffles lines, reverses lins, and removes duplicates of lines",
-  "repository": "https://github.com/kristenmills/permute",
+  "repository": "https://github.com/kristenmills/atom-permute",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
