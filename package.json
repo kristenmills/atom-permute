@@ -2,8 +2,8 @@
   "name": "permute",
   "main": "./lib/permute",
   "version": "0.0.0",
-  "description": "Shuffle Lines and remove duplicate of lines",
-  "repository": "https://github.com/atom/permute",
+  "description": "Shuffles lines, reverses lins, and removes duplicates of lines",
+  "repository": "https://github.com/kristenmills/permute",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
