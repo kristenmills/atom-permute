@@ -40,7 +40,7 @@ describe "Permute", ->
           Apple
           Banana
           Cheese
-          Cool
+          Cool\n
         """
 
   describe "when entire lines are selected", ->
@@ -62,7 +62,7 @@ describe "Permute", ->
           Banana
           Apple
           Cheese
-          Cool
+          Cool\n
         """
 
   describe "when partial lines are selected", ->
@@ -84,7 +84,7 @@ describe "Permute", ->
           Banana
           Apple
           Cheese
-          Cool
+          Cool\n
         """
 
   describe "when there are multiple selection ranges", ->
@@ -98,13 +98,13 @@ describe "Permute", ->
         Cheese
       """
 
-      editor.addSelectionForBufferRange([[0,0], [2,0]])
+      editor.addSelectionForBufferRange([[0,0], [1,2]])
       editor.addSelectionForBufferRange([[3,0], [6,0]])
 
       unique ->
         expect(editor.getText()).toBe """
-          Apple
+          Apple\n
           Banana
           Cool
-          Cheese
+          Cheese\n
         """

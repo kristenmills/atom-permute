@@ -13,6 +13,9 @@ module.exports =
     atom.workspaceView.command 'permute:unique', '.editor', ->
       editor = atom.workspaceView.getActivePaneItem()
       unique(editor)
+    atom.workspaceView.command 'permute:reverse', '.editor', ->
+      editor = atom.workspaceView.getActivePaneItem()
+      reverse(editor)
 
 shuffle = (editor) ->
   shufflebleRanges = RangeFinder.rangesFor(editor)
@@ -21,10 +24,16 @@ shuffle = (editor) ->
     for i in [textLines.length..1]
       j = Math.floor(Math.random() * (i+1))
       [textLines[i], textLines[j]] = [textLines[j], textLines[i]]
-    editor.setTextInBufferRange(range, textLines.join("\n").replace(/\s+$/, ''))
+    editor.setTextInBufferRange(range, textLines.join("\n"))
 
 unique = (editor) ->
   uniqueRanges = RangeFinder.rangesFor(editor)
   uniqueRanges.forEach (range) ->
     textLines = editor.getTextInBufferRange(range).split("\n").unique()
-    editor.setTextInBufferRange(range, textLines.join("\n").replace(/\s+$/, ''))
+    editor.setTextInBufferRange(range, textLines.join("\n"))
+
+reverse = (editor) ->
+  reverseRanges = RangeFinder.rangesFor(editor)
+  reverseRanges.forEach (range) ->
+    textLines = editor.getTextInBufferRange(range).split("\n").reverse()
+    editor.setTextInBufferRange(range, textLines.join("\n"))
