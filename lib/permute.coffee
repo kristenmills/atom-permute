@@ -11,10 +11,10 @@ module.exports =
       editor = atom.workspace.getActivePaneItem()
       shuffle(editor);
     atom.commands.add 'atom-text-editor', 'permute:unique': (event) ->
-      editor = atom.workspaceView.getActivePaneItem()
+      editor = atom.workspace.getActivePaneItem()
       unique(editor)
     atom.commands.add 'atom-text-editor', 'permute:reverse': (event) ->
-      editor = atom.workspaceView.getActivePaneItem()
+      editor = atom.workspace.getActivePaneItem()
       reverse(editor)
 
 shuffle = (editor) ->
