@@ -7,14 +7,14 @@ Array::unique = ->
 
 module.exports =
   activate: ->
-    atom.workspaceView.command 'permute:shuffle', '.editor', ->
-      editor = atom.workspaceView.getActivePaneItem()
+    atom.commands.add 'atom-text-editor', 'permute:shuffle': (event) ->
+      editor = atom.workspace.getActivePaneItem()
       shuffle(editor);
-    atom.workspaceView.command 'permute:unique', '.editor', ->
-      editor = atom.workspaceView.getActivePaneItem()
+    atom.commands.add 'atom-text-editor', 'permute:unique': (event) ->
+      editor = atom.workspace.getActivePaneItem()
       unique(editor)
-    atom.workspaceView.command 'permute:reverse', '.editor', ->
-      editor = atom.workspaceView.getActivePaneItem()
+    atom.commands.add 'atom-text-editor', 'permute:reverse': (event) ->
+      editor = atom.workspace.getActivePaneItem()
       reverse(editor)
 
 shuffle = (editor) ->
