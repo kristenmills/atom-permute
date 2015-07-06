@@ -1,4 +1,3 @@
-{WorkspaceView} = require 'atom'
 Permute = require '../lib/permute'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
@@ -9,24 +8,14 @@ Permute = require '../lib/permute'
 describe "Permute", ->
   [activationPromise, editor, editorView] = []
 
-  unique = (callback) ->
-    editorView.trigger "permute:unique"
-    waitsForPromise -> activationPromise
-    runs(callback)
-
-  reverse = (callback) ->
-    editorView.trigger "permute:reverse"
-    waitsForPromise -> activationPromise
-    runs(callback)
-
   beforeEach ->
-    atom.workspaceView = new WorkspaceView
-    atom.workspaceView.openSync()
-
-    editorView = atom.workspaceView.getActiveView()
-    editor = editorView.getEditor()
-
-    activationPromise = atom.packages.activatePackage('permute')
+    editorView = atom.views.getView atom.workspace
+    waitsForPromise ->
+      Promise.all [
+        activationPromise = atom.packages.activatePackage 'permute'
+        atom.workspace.open().then (e) ->
+          editor = e
+      ]
 
   describe "when no lines are selected", ->
     it "filters out all lines", ->
@@ -40,13 +29,15 @@ describe "Permute", ->
 
       editor.setCursorBufferPosition([0,0])
 
-      unique ->
+      atom.commands.dispatch editorView, "permute:unique"
+      runs ->
         expect(editor.getText()).toBe """
           Apple
           Banana
           Cheese
           Cool\n
         """
+
     it "reverses all lines", ->
       editor.setText """
         Apple
@@ -56,7 +47,8 @@ describe "Permute", ->
 
       editor.setCursorBufferPosition([0,0])
 
-      reverse ->
+      atom.commands.dispatch editorView, "permute:reverse"
+      runs ->
         expect(editor.getText()).toBe """
           Cheese
           Banana
@@ -76,7 +68,8 @@ describe "Permute", ->
 
       editor.setSelectedBufferRange([[1,0], [6,0]])
 
-      unique ->
+      atom.commands.dispatch editorView, "permute:unique"
+      runs ->
         expect(editor.getText()).toBe """
           Apple
           Banana
@@ -96,7 +89,8 @@ describe "Permute", ->
 
       editor.setSelectedBufferRange([[1,0], [5,0]])
 
-      reverse ->
+      atom.commands.dispatch editorView, "permute:reverse"
+      runs ->
         expect(editor.getText()).toBe """
           Apple
           Trees
@@ -118,7 +112,8 @@ describe "Permute", ->
 
       editor.setSelectedBufferRange([[1,4], [5,7]])
 
-      unique ->
+      atom.commands.dispatch editorView, "permute:unique"
+      runs ->
         expect(editor.getText()).toBe """
           Apple
           Banana
@@ -137,7 +132,8 @@ describe "Permute", ->
 
       editor.setSelectedBufferRange([[1,1], [4,7]])
 
-      reverse ->
+      atom.commands.dispatch editorView, "permute:reverse"
+      runs ->
         expect(editor.getText()).toBe """
           Apple
           Trees
@@ -160,7 +156,8 @@ describe "Permute", ->
       editor.addSelectionForBufferRange([[0,0], [1,2]])
       editor.addSelectionForBufferRange([[3,0], [6,0]])
 
-      unique ->
+      atom.commands.dispatch editorView, "permute:unique"
+      runs ->
         expect(editor.getText()).toBe """
           Apple\n
           Banana
@@ -181,7 +178,8 @@ describe "Permute", ->
       editor.addSelectionForBufferRange([[0,0], [1,2]])
       editor.addSelectionForBufferRange([[3,0], [6,0]])
 
-      reverse ->
+      atom.commands.dispatch editorView, "permute:reverse"
+      runs ->
         expect(editor.getText()).toBe """
           Banana
           Apple

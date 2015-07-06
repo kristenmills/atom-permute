@@ -1,12 +1,12 @@
 {
   "name": "permute",
   "main": "./lib/permute",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shuffles lines, reverses lins, and removes duplicates of lines",
   "repository": "https://github.com/kristenmills/atom-permute",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">1.0.0"
   },
   "dependencies": {}
 }

@@ -13,7 +13,7 @@ class RangeFinder
   ranges: ->
     selectionRanges = @selectionRanges()
     if selectionRanges.length is 0
-      [@sortableRangeForEntireBuffer()]
+      [@sortableRangeFrom(@sortableRangeForEntireBuffer())]
     else
       selectionRanges.map (selectionRange) =>
         @sortableRangeFrom(selectionRange)
@@ -35,6 +35,6 @@ class RangeFinder
       selectionRange.end.row - 1
     else
       selectionRange.end.row
-    endCol = @editor.lineLengthForBufferRow(endRow)
+    endCol = @editor.lineTextForBufferRow(endRow).length
 
     new Range [startRow, startCol], [endRow, endCol]
